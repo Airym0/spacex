@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_x/manager/api_manager.dart';
 import 'package:space_x/manager/database_manager.dart';
+import 'package:space_x/model/company.dart';
 import 'package:space_x/model/launch.dart';
 
 @injectable
@@ -44,6 +45,10 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<Launch?> getLaunchById(String launchId) async {
     return await ApiManager().getOneLaunch(launchId);
+  }
+
+  Future<Company?> getCompany() async {
+    return await ApiManager().getCompany();
   }
 
   Future<void> loadUpcomingLauches() async {

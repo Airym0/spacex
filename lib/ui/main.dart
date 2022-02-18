@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:space_x/model/launch.dart';
+import 'package:space_x/ui/pages/company_page.dart';
+import 'package:space_x/ui/pages/history_launches.dart';
+import 'package:space_x/ui/pages/upcoming_launches.dart';
 import 'package:space_x/view_models/home_view_model.dart';
 
 import 'pages/launch_detail.dart';
@@ -53,27 +56,9 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   static List<Widget> widgetOptions = <Widget>[
-    Consumer<HomeViewModel>(
-      builder: (context, HomeViewModel model, child) {
-        return model.upcomingLaunches != null
-            ? LaunchList(model.upcomingLaunches ?? [])
-            : Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    ),
-    Consumer<HomeViewModel>(
-        builder: (context, HomeViewModel model, child) {
-          return model.upcomingLaunches != null
-              ? LaunchList(model.historyLaunches ?? [])
-              : Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-    ),
-    Text(
-      'Index 2: Schoool',
-    ),
+    const UpcomingLaunches(),
+    const HistoryLaunches(),
+    const CompanyPage()
   ];
 
   @override

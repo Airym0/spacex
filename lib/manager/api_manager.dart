@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_x/model/company.dart';
 import 'package:space_x/model/launch.dart';
 
 @singleton
@@ -22,6 +23,12 @@ class ApiManager {
     //immediatly return null if json is null
     if(json == null) return null;
     return Launch.fromJson(json);
+  }
+
+  Company? parseCompany(Map<String, dynamic>? json){
+    //immediatly return null if json is null
+    if(json == null) return null;
+    return Company.fromJson(json);
   }
 
   Future<List<Launch>?> getUpcomingLaunches() async {
@@ -54,6 +61,18 @@ class ApiManager {
           .get<Map<String, dynamic>>("/launches/$launchId")
           .then((response) => parseOneLaunch(response.data));
       return launch;
+    } catch(error) {
+      debugPrint("Erreur : $error");
+      return null;
+    }
+  }
+
+  Future<Company?> getCompany() async {
+    try{
+      Company? company = await dio
+          .get<Map<String, dynamic>>("/company")
+          .then((response) => parseCompany(response.data));
+      return company;
     } catch(error) {
       debugPrint("Erreur : $error");
       return null;
