@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:space_x/manager/notification_manager.dart';
 import 'package:space_x/model/launch.dart';
 import 'package:space_x/ui/pages/company_page.dart';
 import 'package:space_x/ui/pages/history_launches.dart';
 import 'package:space_x/ui/pages/map.dart';
+import 'package:space_x/ui/pages/settings.dart';
 import 'package:space_x/ui/pages/upcoming_launches.dart';
 import 'package:space_x/view_models/home_view_model.dart';
 
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
             }
           case MapScreen.route:
             return MaterialPageRoute(builder: (_) => MapScreen());
+          case SettingsPage.route:
+            return MaterialPageRoute(builder: (_) => SettingsPage());
 
           default:
             return unknownRoute();
@@ -66,6 +70,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NotificationManager.init();
     return ChangeNotifierProvider(
         create: (context) => HomeViewModel(),
         child: Consumer<HomeViewModel>(
@@ -89,7 +94,9 @@ class MyHomePage extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(right: 20.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(SettingsPage.route);
+                      },
                       child: const Icon(
                           Icons.settings
                       ),

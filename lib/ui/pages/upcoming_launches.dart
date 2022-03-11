@@ -14,7 +14,7 @@ class UpcomingLaunches extends StatelessWidget {
     return Consumer<HomeViewModel>(
         builder: (context, HomeViewModel model, child) {
         return model.upcomingLaunches != null
-              ? LaunchList(model.upcomingLaunches ?? [])
+              ? LaunchList(model.upcomingLaunches ?? [], true)
               : const Center(
                   child: CircularProgressIndicator(),
                 );

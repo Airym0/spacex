@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:space_x/model/launch.dart';
+import 'package:space_x/ui/components/countdown.dart';
 import 'package:space_x/view_models/home_view_model.dart';
 
 import '../components/image_placeholder.dart';
@@ -37,12 +39,20 @@ class LaunchDetail extends StatelessWidget {
                   children: [
                     Text(
                       snapshot.data?.name ?? '',
-                      style: const TextStyle(fontSize: 20),
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
                     Text("N° de vol : ${snapshot.data?.flight_number}"),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Countdown(launch),
                   ],
                 ),
               )

@@ -13,7 +13,7 @@ class HistoryLaunches extends StatelessWidget {
     return Consumer<HomeViewModel>(
         builder: (context, HomeViewModel model, child) {
           return model.historyLaunches != null
-              ? LaunchList(model.historyLaunches ?? [])
+              ? LaunchList(model.historyLaunches ?? [], false)
               : const Center(
             child: CircularProgressIndicator(),
           );
