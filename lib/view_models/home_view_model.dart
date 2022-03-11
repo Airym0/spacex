@@ -12,6 +12,7 @@ class HomeViewModel extends ChangeNotifier {
   List<Launch>? historyLaunches = [];
   int selectedIndex = 0;
   String title = "Lancements prévus";
+  Launch? nextLaunch;
 
   final ScrollController scrollController = ScrollController();
 
