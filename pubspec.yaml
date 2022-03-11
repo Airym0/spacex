@@ -35,6 +35,9 @@ dependencies:
   cupertino_icons: ^1.0.4
 
   json_annotation: ^4.4.0
+  google_maps_flutter:
+  flutter_polyline_points:
+  uuid: 3.0.6
 
   injectable:
   get_it:

@@ -20,10 +20,6 @@ class HomeViewModel extends ChangeNotifier {
     loadHistoryLaunches();
   }
 
-  void inutile(){
-    print('hy');
-  }
-
   void onBarButtonItemTapped(int index) {
     selectedIndex = index;
     if(index == 0){

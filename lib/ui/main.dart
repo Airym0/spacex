@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:space_x/model/launch.dart';
 import 'package:space_x/ui/pages/company_page.dart';
 import 'package:space_x/ui/pages/history_launches.dart';
+import 'package:space_x/ui/pages/map.dart';
 import 'package:space_x/ui/pages/upcoming_launches.dart';
 import 'package:space_x/view_models/home_view_model.dart';
 
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
               throw Exception(
                   "Cette route doit avoir un objet SpotDetailArgument en argument");
             }
+          case MapScreen.route:
+            return MaterialPageRoute(builder: (_) => MapScreen());
 
           default:
             return unknownRoute();
@@ -70,6 +73,29 @@ class MyHomePage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(model.title),
+              actions: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(MapScreen.route);
+                      },
+                      child: const Icon(
+                        Icons.map,
+                        size: 26.0,
+                      ),
+                    )
+                ),
+                Padding(
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                          Icons.settings
+                      ),
+                    )
+                ),
+              ],
             ),
             body: widgetOptions.elementAt(model.selectedIndex),
             bottomNavigationBar: BottomNavigationBar(
