@@ -43,41 +43,47 @@ class NextLaunch extends StatelessWidget {
                     )),
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Countdown(
-                        launch,
-                        () => {
-                              if (NotificationManager.activated)
-                                {
-                                  NotificationManager.showNotification(
-                                      title: "Space X launch",
-                                      body: "${launch.name} is taking of !",
-                                      payload: "payload"),
-                                  model.reload()
-                                }
-                            }),
-                    Text(
-                      launch.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text("Flight number : ${launch.flight_number}"),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                        "Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.parse(launch.date_utc))}")
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Countdown(
+                            launch,
+                            () => {
+                                  if (NotificationManager.activated)
+                                    {
+                                      NotificationManager.showNotification(
+                                          title: "Space X launch",
+                                          body: "${launch.name} is taking of !",
+                                          payload: "payload"),
+                                      model.reload()
+                                    }
+                                }),
+                      ),
+                      Text(
+                        launch.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text("Flight number : ${launch.flight_number}"),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                          "Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.parse(launch.date_utc))}")
+                    ],
+                  ),
                 ),
               ),
               Padding(

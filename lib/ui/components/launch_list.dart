@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:space_x/manager/database_manager.dart';
 import 'package:space_x/model/launch.dart';
 import 'package:space_x/ui/components/image_placeholder.dart';
 import 'package:space_x/ui/components/next_launch.dart';
@@ -18,20 +16,26 @@ class LaunchList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeViewModel>(
-      builder: (context, HomeViewModel model, child) {
-        return ListView.builder(
-          shrinkWrap: true,
-          primary: false,
-          itemBuilder: (context, position) {
-            Launch launch = launches[position];
-            if(position == 0 && upcomings){
-              return NextLaunch(launch);
-            } else {
-              return InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(LaunchDetail.route,
-                      arguments: LaunchDetailArguments(launch: launch));
-                },
+        builder: (context, HomeViewModel model, child) {
+      return ListView.builder(
+        shrinkWrap: true,
+        primary: false,
+        itemBuilder: (context, position) {
+          Launch launch = launches[position];
+          if (position == 0 && upcomings) {
+            return NextLaunch(launch);
+          } else {
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(LaunchDetail.route,
+                    arguments: LaunchDetailArguments(launch: launch));
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(width: 1.0, color: Colors.black),
+                  ),
+                ),
                 child: Row(
                   children: [
                     Padding(
@@ -41,12 +45,10 @@ class LaunchList extends StatelessWidget {
                           height: 75,
                           child: Image.network(
                             launch.links.patch.small ?? '',
-
                             errorBuilder: (context, child, stack) {
                               return const ImagePlaceholder();
                             },
-                          )
-                      ),
+                          )),
                     ),
                     Expanded(
                       child: Column(
@@ -57,14 +59,14 @@ class LaunchList extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                              launch.name,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black),
-                            ),
+                            launch.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
                           const SizedBox(
                             height: 8,
                           ),
@@ -72,7 +74,8 @@ class LaunchList extends StatelessWidget {
                           const SizedBox(
                             height: 8,
                           ),
-                          Text("Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.parse(launch.date_utc))}")
+                          Text(
+                              "Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.parse(launch.date_utc))}")
                         ],
                       ),
                     ),
@@ -83,21 +86,20 @@ class LaunchList extends StatelessWidget {
                             model.setFavorite(launch);
                           },
                           icon: Icon(
-                            launch.isFavorite! ? Icons.thumb_up : Icons
-                                .thumb_up_outlined,
+                            launch.isFavorite!
+                                ? Icons.thumb_up
+                                : Icons.thumb_up_outlined,
                           ),
-                          label: const Text("")
-                      ),
+                          label: const Text("")),
                     )
                   ],
                 ),
-              );
-            }
-          },
-          itemCount: launches.length,
-        );
-      }
-    );
+              ),
+            );
+          }
+        },
+        itemCount: launches.length,
+      );
+    });
   }
-
 }
