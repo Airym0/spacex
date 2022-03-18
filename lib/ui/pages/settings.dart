@@ -38,15 +38,9 @@ class SettingsPage extends StatelessWidget {
                                 color: Colors.black)),
                         const Spacer(),
                         CupertinoSwitch(
-                            value: model.activated,
+                            value: NotificationManager.activated,
                             onChanged: (newValue) {
                               model.setNotificationState(newValue);
-                              if(model.activated){
-                                NotificationManager.showNotification(
-                                    title: "Launch is coming !",
-                                    body: "Test",
-                                    payload: "payload");
-                              }
                             })
                       ],
                     ),

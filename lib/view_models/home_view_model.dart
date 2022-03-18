@@ -3,15 +3,17 @@ import 'package:injectable/injectable.dart';
 import 'package:space_x/manager/api_manager.dart';
 import 'package:space_x/manager/database_manager.dart';
 import 'package:space_x/model/company.dart';
+import 'package:space_x/model/crew.dart';
 import 'package:space_x/model/launch.dart';
 
-@injectable
+@singleton
 class HomeViewModel extends ChangeNotifier {
 
   List<Launch>? upcomingLaunches = [];
   List<Launch>? historyLaunches = [];
+  List<Crew>? crews = [];
   int selectedIndex = 0;
-  String title = "Lancements prévus";
+  String title = "Upcoming launches";
   Launch? nextLaunch;
 
   final ScrollController scrollController = ScrollController();
@@ -19,16 +21,17 @@ class HomeViewModel extends ChangeNotifier {
   HomeViewModel(){
     loadUpcomingLauches();
     loadHistoryLaunches();
+    loadCrews();
   }
 
   void onBarButtonItemTapped(int index) {
     selectedIndex = index;
     if(index == 0){
-      title = "Lancements prévus";
+      title = "Upcoming launches";
     } else if(index == 1){
-      title ="Lancements passés";
+      title ="Past launches";
     } else if(index == 2){
-      title ="SpaceX";
+      title ="The Company";
     }
     notifyListeners();
   }
@@ -40,12 +43,21 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void reload(){
+    loadUpcomingLauches();
+    notifyListeners();
+  }
+
   Future<Launch?> getLaunchById(String launchId) async {
     return await ApiManager().getOneLaunch(launchId);
   }
 
   Future<Company?> getCompany() async {
     return await ApiManager().getCompany();
+  }
+
+  Future<void> loadCrews() async {
+    crews = await ApiManager().getAllCrews();
   }
 
   Future<void> loadUpcomingLauches() async {

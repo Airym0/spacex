@@ -43,6 +43,7 @@ dependencies:
   flutter_local_notifications:
   rxdart:
   intl:
+  url_launcher:
 
   injectable:
   get_it:

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:space_x/model/links_launch.dart';
 
 part 'launch.g.dart';
 
@@ -9,8 +10,10 @@ class Launch {
   String name;
   String date_utc;
   bool? isFavorite;
+  LinksLaunch links;
+  String? details;
 
-  Launch({required this.id, required this.flight_number, required this.name, required this.date_utc, this.isFavorite});
+  Launch({required this.id, required this.flight_number, required this.name, required this.date_utc, this.isFavorite, required this.links, this.details});
 
   factory Launch.fromJson(Map<String, dynamic> json) =>
       _$LaunchFromJson(json);

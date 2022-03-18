@@ -19,7 +19,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.singleton<_i3.ApiManager>(_i3.ApiManager());
   gh.singleton<_i4.DatabaseManager>(_i4.DatabaseManager());
-  gh.factory<_i5.HomeViewModel>(() => _i5.HomeViewModel());
+  gh.singleton<_i5.HomeViewModel>(_i5.HomeViewModel());
   gh.factory<_i6.MapViewModel>(() => _i6.MapViewModel());
   return get;
 }

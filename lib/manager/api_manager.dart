@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_x/model/company.dart';
+import 'package:space_x/model/crew.dart';
 import 'package:space_x/model/landpad.dart';
 import 'package:space_x/model/launch.dart';
 import 'package:space_x/model/launchpad.dart';
@@ -55,6 +56,12 @@ class ApiManager {
     //immediatly return null if json is null
     if(json == null) return null;
     return Company.fromJson(json);
+  }
+
+  List<Crew>? parseCrews(List<dynamic>? jsonArray){
+    //immediatly return null if json is null
+    if(jsonArray == null) return null;
+    return jsonArray.map<Crew>((json) => Crew.fromJson(json)).toList();
   }
 
   Future<List<Launch>?> getUpcomingLaunches() async {
@@ -111,6 +118,18 @@ class ApiManager {
           .get<List<dynamic>>("/landpads")
           .then((response) => parseLandpads(response.data));
       return landpads;
+    } catch(error) {
+      debugPrint("Erreur : $error");
+      return null;
+    }
+  }
+
+  Future<List<Crew>?> getAllCrews() async {
+    try{
+      List<Crew>? crews = await dio
+          .get<List<dynamic>>("/crew")
+          .then((response) => parseCrews(response.data));
+      return crews;
     } catch(error) {
       debugPrint("Erreur : $error");
       return null;

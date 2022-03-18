@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:space_x/manager/get_it.dart';
 import 'package:space_x/manager/notification_manager.dart';
 import 'package:space_x/model/launch.dart';
 import 'package:space_x/ui/pages/company_page.dart';
@@ -13,6 +14,8 @@ import 'pages/launch_detail.dart';
 import 'components/launch_list.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -62,17 +65,11 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
-  static List<Widget> widgetOptions = <Widget>[
-    const UpcomingLaunches(),
-    const HistoryLaunches(),
-    const CompanyPage()
-  ];
-
   @override
   Widget build(BuildContext context) {
     NotificationManager.init();
     return ChangeNotifierProvider(
-        create: (context) => HomeViewModel(),
+        create: (context) => locator<HomeViewModel>(),
         child: Consumer<HomeViewModel>(
             builder: (context, HomeViewModel model, child) {
           return Scaffold(
@@ -104,7 +101,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
             ),
-            body: widgetOptions.elementAt(model.selectedIndex),
+            body: getWidgetAtIndex(model.selectedIndex),
             bottomNavigationBar: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
@@ -126,5 +123,16 @@ class MyHomePage extends StatelessWidget {
             ),
           );
         }));
+  }
+
+  Widget getWidgetAtIndex(int index) {
+    switch (index) {
+      case 0:
+        return const UpcomingLaunches();
+      case 1:
+        return const HistoryLaunches();
+      default:
+        return const CompanyPage();
+    }
   }
 }

@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 class NotificationManager extends ChangeNotifier {
   static final _notifications = FlutterLocalNotificationsPlugin();
   static final onNotifications = BehaviorSubject<String?>();
-  bool activated = true;
+  static bool activated = true;
 
   static Future showNotification({
     int id = 0,
@@ -40,6 +40,10 @@ class NotificationManager extends ChangeNotifier {
         onNotifications.add(payload);
       },
     );
+  }
+
+  static bool isActivated(){
+    return activated;
   }
 
   static Future _notificationDetails() async {

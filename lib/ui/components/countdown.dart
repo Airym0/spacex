@@ -6,12 +6,9 @@ import 'package:space_x/model/launch.dart';
 
 class Countdown extends StatelessWidget {
   final Launch launch;
+  final void Function() onEnd;
 
-  Countdown(this.launch, {Key? key}) : super(key: key);
-
-  void onEnd() {
-    print('onEnd');
-  }
+  Countdown(this.launch, this.onEnd, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +16,16 @@ class Countdown extends StatelessWidget {
     CountdownTimerController controller =
         CountdownTimerController(endTime: endTime, onEnd: onEnd);
     return Center(
-      child: CountdownTimer(
+      child: DateTime.parse(launch.date_utc).isAfter(DateTime.now()) ? CountdownTimer(
         controller: controller,
         onEnd: onEnd,
         endTime: endTime,
-        textStyle: TextStyle(
-            fontSize: 16,
+        textStyle: const TextStyle(
+            fontSize: 18,
             fontFamily: 'Roboto',
-            fontWeight: FontWeight.w600,
-            color: Colors.black),
-      ),
+            fontWeight: FontWeight.bold,
+            color: Colors.blue),
+      ) : const SizedBox()
     );
   }
 }

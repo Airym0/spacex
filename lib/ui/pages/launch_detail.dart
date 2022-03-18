@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:space_x/manager/get_it.dart';
 import 'package:space_x/model/launch.dart';
 import 'package:space_x/ui/components/countdown.dart';
 import 'package:space_x/view_models/home_view_model.dart';
@@ -28,7 +29,7 @@ class LaunchDetail extends StatelessWidget {
       ),
       body:
       FutureBuilder<Launch?>(
-        future: HomeViewModel().getLaunchById(launch.id),
+        future: locator<HomeViewModel>().getLaunchById(launch.id),
         builder: (context, snapshot) {
           if(snapshot.hasData){
             return SingleChildScrollView(
@@ -37,6 +38,17 @@ class LaunchDetail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    SizedBox(
+                        child: Image.network(
+                          snapshot.data?.links.patch.large ?? '',
+                          width: 200,
+                          height: 300,
+                          errorBuilder: (context, child, stack) {
+                            return const SizedBox(
+                              height: 12,
+                            );
+                          },
+                        )),
                     Text(
                       snapshot.data?.name ?? '',
                       style: TextStyle(
@@ -48,11 +60,17 @@ class LaunchDetail extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    Text("N° de vol : ${snapshot.data?.flight_number}"),
+                    Text("Flight number : ${snapshot.data?.flight_number}"),
                     const SizedBox(
                       height: 12,
                     ),
-                    Countdown(launch),
+                    Text(snapshot.data?.details ?? ''),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Countdown(launch, () => {
+                      print("end")
+                    }),
                   ],
                 ),
               )

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:space_x/manager/database_manager.dart';
 import 'package:space_x/model/launch.dart';
+import 'package:space_x/ui/components/image_placeholder.dart';
 import 'package:space_x/ui/components/next_launch.dart';
 import 'package:space_x/ui/pages/launch_detail.dart';
 import 'package:space_x/view_models/home_view_model.dart';
@@ -31,38 +32,53 @@ class LaunchList extends StatelessWidget {
                   Navigator.of(context).pushNamed(LaunchDetail.route,
                       arguments: LaunchDetailArguments(launch: launch));
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                          width: 75,
+                          height: 75,
+                          child: Image.network(
+                            launch.links.patch.small ?? '',
+
+                            errorBuilder: (context, child, stack) {
+                              return const ImagePlaceholder();
+                            },
+                          )
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
                               launch.name,
-                              style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text("N° de vol : ${launch.flight_number}"),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text("Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.parse(launch.date_utc))}")
-                          ],
-                        ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text("Flight number : ${launch.flight_number}"),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text("Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.parse(launch.date_utc))}")
+                        ],
                       ),
-                      ElevatedButton.icon(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton.icon(
                           onPressed: () {
                             model.setFavorite(launch);
                           },
@@ -71,9 +87,9 @@ class LaunchList extends StatelessWidget {
                                 .thumb_up_outlined,
                           ),
                           label: const Text("")
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               );
             }
