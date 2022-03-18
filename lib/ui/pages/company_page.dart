@@ -53,49 +53,46 @@ class CompanyPage extends StatelessWidget {
                           height: 12,
                         ),
                         Text("${snapshot.data?.summary}"),
-                        SizedBox(
-                          height: 12,
-                        ),
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                          child: SizedBox(
-                              width: 70,
-                              height: 70,
-                              child: Image.network(
-                                  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SpaceX-Logo-Xonly.svg/1280px-SpaceX-Logo-Xonly.svg.png')),
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          onTap: () =>
-                              launch('${snapshot.data?.links.website}')),
-                      InkWell(
-                          child: SizedBox(
-                              width: 70,
-                              height: 70,
-                              child: Image.network(
-                                  'https://logo-marque.com/wp-content/uploads/2021/03/Flickr-Logo.png')),
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          onTap: () =>
-                              launch('${snapshot.data?.links.flickr}')),
-                      InkWell(
-                          child: SizedBox(
-                              width: 60,
-                              height: 50,
-                              child: Image.network(
-                                  'https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/944px-Twitter_Bird.svg.png')),
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          onTap: () =>
-                              launch('${snapshot.data?.links.twitter}')),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                            child: SizedBox(
+                                width: 70,
+                                height: 70,
+                                child: Image.network(
+                                    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SpaceX-Logo-Xonly.svg/1280px-SpaceX-Logo-Xonly.svg.png')),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            onTap: () =>
+                                launch('${snapshot.data?.links.website}')),
+                        InkWell(
+                            child: SizedBox(
+                                width: 70,
+                                height: 70,
+                                child: Image.network(
+                                    'https://logo-marque.com/wp-content/uploads/2021/03/Flickr-Logo.png')),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            onTap: () =>
+                                launch('${snapshot.data?.links.flickr}')),
+                        InkWell(
+                            child: SizedBox(
+                                width: 60,
+                                height: 50,
+                                child: Image.network(
+                                    'https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/944px-Twitter_Bird.svg.png')),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            onTap: () =>
+                                launch('${snapshot.data?.links.twitter}')),
+                      ],
+                    ),
                   ),
                   Text("Crew members :"),
                   SizedBox(
